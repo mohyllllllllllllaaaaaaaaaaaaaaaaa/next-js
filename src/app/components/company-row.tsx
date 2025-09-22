@@ -1,17 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import clsx from 'clsx';
-import StatusLabel, {Status} from "@/app/components/status-label";
-import Link from "next/link";
-import {Company } from '@/lib/api';
+import StatusLabel from '@/app/components/status-label';
+import { Company } from '@/lib/api';
 
 export interface CompanyRowProps {
     company: Company;
 }
 
-
-
-export default function CompanyRow({ company}: CompanyRowProps) {
+export default function CompanyRow({ company }: CompanyRowProps) {
     return (
         <tr className="h-14 text-center text-gray-900 bg-white">
             <td className="text-xs font-medium text-blue-700 rounded-l border-l-4 border-blue-700">

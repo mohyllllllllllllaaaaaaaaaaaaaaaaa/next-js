@@ -86,18 +86,46 @@ export const getCategories = (init?: RequestInit) => {
     return sendRequest<Category[]>(buildUrl('categories'), init);
 };
 
-    export const getCompanies = (init?: RequestInit) => {
-        return sendRequest<Company[]>(buildUrl('companies'), init);
-    };
-    export const getCompany = (id: string, init?: RequestInit) => {
-        return sendRequest<Company>(buildUrl('companies', id), init);
-    };
-    export const getPromotions = async (
-        params: Record<string, string> = {},
-        init?: RequestInit,
-    ) => {
-        return sendRequest<Promotion[]>(
-            `${buildUrl('promotions')}?${stringifyQueryParams(params)}`,
-            init,
-        );
-    };
+export const getCompanies = (init?: RequestInit) => {
+    return sendRequest<Company[]>(buildUrl('companies'), init);
+};
+export const getCompany = (id: string, init?: RequestInit) => {
+    return sendRequest<Company>(buildUrl('companies', id), init);
+};
+export const getPromotions = async (
+    params: Record<string, string> = {},
+    init?: RequestInit,
+) => {
+    return sendRequest<Promotion[]>(
+        `${buildUrl('promotions')}?${stringifyQueryParams(params)}`,
+        init,
+    );
+};
+export const createCompany = async (
+    data: Omit<Company, 'id' | 'hasPromotions'>,
+    init?: RequestInit,
+) => {
+    return sendRequest<Company>(buildUrl('companies'), {
+        ...init,
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            ...(init && init.headers),
+            'content-type': 'application/json',
+        },
+    });
+};
+
+export const createPromotion = async (
+    data: Omit<Promotion, 'id'>,
+    init?: RequestInit,
+) => {
+    return sendRequest<Promotion>(buildUrl('promotions'), {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            ...(init && init.headers),
+            'content-type': 'application/json',
+        },
+    });
+};
